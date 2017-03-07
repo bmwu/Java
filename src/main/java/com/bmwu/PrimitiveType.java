@@ -1,4 +1,4 @@
-import org.omg.PortableInterceptor.INACTIVE;
+package com.bmwu;
 
 /**
  * Created by michael on 3/5/17.
