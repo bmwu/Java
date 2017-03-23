@@ -1,4 +1,4 @@
-package com.bmwu;
+package com.bmwu.cloud.oss;
 
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
