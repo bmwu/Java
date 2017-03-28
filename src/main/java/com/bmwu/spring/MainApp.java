@@ -23,5 +23,21 @@ public class MainApp {
         HelloWorld helloWorld1 = (HelloWorld) xmlBeanFactory.getBean("helloWorld");
         helloWorld1.getMessage();
 
+        // scope = singleton
+        HelloWorld helloWorld2 = (HelloWorld) context.getBean("helloWorldScope");
+        helloWorld2.setMessage("scope");
+        helloWorld2.getMessage();
+
+        HelloWorld helloWorld3 = (HelloWorld) context.getBean("helloWorldScope");
+        helloWorld3.getMessage();
+
+        // scope = prototype
+        HelloWorld helloWorld4 = (HelloWorld) context.getBean("helloWorldScope2");
+        helloWorld4.setMessage("scope");
+        helloWorld4.getMessage();
+
+        HelloWorld helloWorld5 = (HelloWorld) context.getBean("helloWorldScope2");
+        helloWorld5.getMessage();
+
     }
 }

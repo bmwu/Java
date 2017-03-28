@@ -9,4 +9,10 @@
         <property name="message" value="Hello World!"/>
     </bean>
 
+    <bean id="helloWorldScope" class="com.bmwu.spring.HelloWorld" scope="singleton">
+    </bean>
+
+    <bean id="helloWorldScope2" class="com.bmwu.spring.HelloWorld" scope="prototype">
+    </bean>
+
 </beans>
