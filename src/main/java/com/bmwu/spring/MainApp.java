@@ -1,7 +1,7 @@
 package com.bmwu.spring;
 
 import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
@@ -12,7 +12,7 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        ApplicationContext context =
+        AbstractApplicationContext context =
                 new ClassPathXmlApplicationContext("Beans.xml");
 
         HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
@@ -36,6 +36,7 @@ public class MainApp {
         System.out.println("helloWorld3 hashcode: " + helloWorld3.hashCode());
 
         // scope = prototype
+        // Spring不能对一个prototype bean的整个生命周期负责
         HelloWorld helloWorld4 = (HelloWorld) context.getBean("helloWorldScope2");
         helloWorld4.setMessage("scope");
         helloWorld4.getMessage();
@@ -44,6 +45,8 @@ public class MainApp {
         HelloWorld helloWorld5 = (HelloWorld) context.getBean("helloWorldScope2");
         helloWorld5.getMessage();
         System.out.println("helloWorld5 hashcode: " + helloWorld5.hashCode());
+
+        context.registerShutdownHook();
 
     }
 }
