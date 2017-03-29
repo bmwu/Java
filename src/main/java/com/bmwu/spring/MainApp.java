@@ -46,6 +46,8 @@ public class MainApp {
         helloWorld5.getMessage();
         System.out.println("helloWorld5 hashcode: " + helloWorld5.hashCode());
 
+
+
         context.registerShutdownHook();
 
     }

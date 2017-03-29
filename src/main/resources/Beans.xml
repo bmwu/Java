@@ -15,4 +15,6 @@
     <bean id="helloWorldScope2" class="com.bmwu.spring.HelloWorld" scope="prototype">
     </bean>
 
+    <bean id="initHelloWorld" class="com.bmwu.spring.InitHelloWorld" />
+
 </beans>
