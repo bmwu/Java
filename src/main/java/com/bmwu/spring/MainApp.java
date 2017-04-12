@@ -15,6 +15,17 @@ public class MainApp {
         AbstractApplicationContext context =
                 new ClassPathXmlApplicationContext("Beans.xml");
 
+        TextEditor textEditor = (TextEditor) context.getBean("textEditor");
+        textEditor.checkSpelling();
+
+        testHelloWorld(context);
+
+        context.registerShutdownHook();
+
+    }
+
+    private static void testHelloWorld(AbstractApplicationContext context) {
+
         HelloWorld helloWorld = (HelloWorld) context.getBean("helloWorld");
         helloWorld.getMessage();
         System.out.println("helloWorld hashcode: " + helloWorld.hashCode());
@@ -45,10 +56,5 @@ public class MainApp {
         HelloWorld helloWorld5 = (HelloWorld) context.getBean("helloWorldScope2");
         helloWorld5.getMessage();
         System.out.println("helloWorld5 hashcode: " + helloWorld5.hashCode());
-
-
-
-        context.registerShutdownHook();
-
     }
 }

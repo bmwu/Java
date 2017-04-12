@@ -17,4 +17,12 @@
 
     <bean id="initHelloWorld" class="com.bmwu.spring.InitHelloWorld" />
 
+    <bean id="textEditor" class="com.bmwu.spring.TextEditor">
+        <constructor-arg ref="spellChecker"/>
+    </bean>
+
+    <bean id="spellChecker" class="com.bmwu.spring.SpellChecker">
+
+    </bean>
+
 </beans>
