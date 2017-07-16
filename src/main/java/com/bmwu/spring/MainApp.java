@@ -31,6 +31,10 @@ public class MainApp {
         javaCollection.getAddressMap();
         javaCollection.getAddressProperties();
 
+        Profile profile = (Profile) context.getBean("profile");
+        profile.printAge();
+        profile.printName();
+
     }
 
     private static void testHelloWorld(AbstractApplicationContext context) {
