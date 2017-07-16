@@ -1,6 +1,8 @@
 package com.bmwu.spring;
 
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
@@ -12,28 +14,40 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        AbstractApplicationContext context =
-                new ClassPathXmlApplicationContext("Beans.xml");
+//        AbstractApplicationContext context =
+//                new ClassPathXmlApplicationContext("Beans.xml");
 
 //        TextEditor textEditor = (TextEditor) context.getBean("textEditor");
 //        textEditor.checkSpelling();
 
-        TextEditorProperty textEditorProperty = (TextEditorProperty) context.getBean("textEditorProperty");
-        textEditorProperty.checkSpelling();
+//        TextEditorProperty textEditorProperty = (TextEditorProperty) context.getBean("textEditorProperty");
+//        textEditorProperty.checkSpelling();
 
 //        testHelloWorld(context);
 
 //        context.registerShutdownHook();
 
-        JavaCollection javaCollection = (JavaCollection) context.getBean("javaCollection");
-        javaCollection.getAddressList();
-        javaCollection.getAddressSet();
-        javaCollection.getAddressMap();
-        javaCollection.getAddressProperties();
+//        JavaCollection javaCollection = (JavaCollection) context.getBean("javaCollection");
+//        javaCollection.getAddressList();
+//        javaCollection.getAddressSet();
+//        javaCollection.getAddressMap();
+//        javaCollection.getAddressProperties();
+//
+//        Profile profile = (Profile) context.getBean("profile");
+//        profile.printAge();
+//        profile.printName();
 
-        Profile profile = (Profile) context.getBean("profile");
-        profile.printAge();
-        profile.printName();
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(HelloWorldConfig.class);
+        HelloWorld helloWorld = ctx.getBean(HelloWorld.class);
+        helloWorld.setMessage("Hello world");
+        helloWorld.getMessage();
+
+        ApplicationContext ctx2 = new AnnotationConfigApplicationContext(TextEditorConfig.class);
+        TextEditor textEditor = ctx2.getBean(TextEditor.class);
+        textEditor.checkSpelling();
+        HelloWorld helloWorld1 = ctx2.getBean(HelloWorld.class);
+        helloWorld1.setMessage("H W");
+        helloWorld1.getMessage();
 
     }
 
