@@ -25,6 +25,12 @@ public class MainApp {
 
 //        context.registerShutdownHook();
 
+        JavaCollection javaCollection = (JavaCollection) context.getBean("javaCollection");
+        javaCollection.getAddressList();
+        javaCollection.getAddressSet();
+        javaCollection.getAddressMap();
+        javaCollection.getAddressProperties();
+
     }
 
     private static void testHelloWorld(AbstractApplicationContext context) {

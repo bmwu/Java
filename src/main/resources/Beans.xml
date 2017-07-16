@@ -33,4 +33,35 @@
 
     <bean id="spellChecker" class="com.bmwu.spring.SpellChecker"/>
 
+    <bean id="javaCollection" class="com.bmwu.spring.JavaCollection">
+        <property name="addressList">
+            <list>
+                <value>A</value>
+                <value>B</value>
+                <value>C</value>
+            </list>
+        </property>
+        <property name="addressMap">
+            <map>
+                <entry key="1" value="A"/>
+                <entry key="2" value="B"/>
+                <entry key="3" value="C"/>
+            </map>
+        </property>
+        <property name="addressSet">
+            <set>
+                <value>A</value>
+                <value>B</value>
+                <value>C</value>
+            </set>
+        </property>
+        <property name="addressProperties">
+            <props>
+                <prop key="1">A</prop>
+                <prop key="2">B</prop>
+                <prop key="3">C</prop>
+            </props>
+        </property>
+    </bean>
+
 </beans>
