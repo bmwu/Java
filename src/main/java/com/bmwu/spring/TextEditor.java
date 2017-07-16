@@ -5,12 +5,23 @@ package com.bmwu.spring;
  */
 public class TextEditor {
     private SpellChecker spellChecker;
-    public TextEditor(SpellChecker spellChecker) {
+    private String name;
+
+    public TextEditor(SpellChecker spellChecker, String name) {
         System.out.println("TextEditor constructor.");
         this.spellChecker = spellChecker;
+        this.name = name;
     }
 
     public void checkSpelling() {
         this.spellChecker.checkSpelling();
+    }
+
+    public SpellChecker getSpellChecker() {
+        return spellChecker;
+    }
+
+    public String getName() {
+        return name;
     }
 }

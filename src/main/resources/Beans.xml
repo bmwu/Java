@@ -17,18 +17,22 @@
 
     <bean id="initHelloWorld" class="com.bmwu.spring.InitHelloWorld" />
 
-    <bean id="textEditor" class="com.bmwu.spring.TextEditor">
-        <constructor-arg ref="spellChecker"/>
+    <bean id="textEditor" class="com.bmwu.spring.TextEditor" autowire="constructor">
+        <constructor-arg value="test"/>
     </bean>
 
     <!--<bean id="textEditorProperty" class="com.bmwu.spring.TextEditorProperty">-->
         <!--<property name="spellChecker" ref="spellChecker"/>-->
     <!--</bean>-->
 
-    <bean id="textEditorProperty" class="com.bmwu.spring.TextEditorProperty">
-        <property name="spellChecker">
-            <bean id="spellChecker2" class="com.bmwu.spring.SpellChecker"/>
-        </property>
+    <!--<bean id="textEditorProperty" class="com.bmwu.spring.TextEditorProperty">-->
+        <!--<property name="spellChecker">-->
+            <!--<bean id="spellChecker2" class="com.bmwu.spring.SpellChecker"/>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <bean id="textEditorProperty" class="com.bmwu.spring.TextEditorProperty" autowire="byName">
+        <property name="name" value="test"/>
     </bean>
 
     <bean id="spellChecker" class="com.bmwu.spring.SpellChecker"/>

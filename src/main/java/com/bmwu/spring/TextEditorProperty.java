@@ -6,6 +6,7 @@ package com.bmwu.spring;
 public class TextEditorProperty {
 
     private SpellChecker spellChecker;
+    private String name;
 
     public SpellChecker getSpellChecker() {
         System.out.println("TextEditorProperty: getSpellChecker");
@@ -23,5 +24,13 @@ public class TextEditorProperty {
 
     public void checkSpelling() {
         this.spellChecker.checkSpelling();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
