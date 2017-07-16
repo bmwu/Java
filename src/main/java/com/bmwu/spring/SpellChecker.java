@@ -5,7 +5,7 @@ package com.bmwu.spring;
  */
 public class SpellChecker {
     public SpellChecker() {
-        System.out.println("SpellChecker constructor.");
+        System.out.println("Inside SpellChecker constructor.");
     }
 
     public void checkSpelling() {

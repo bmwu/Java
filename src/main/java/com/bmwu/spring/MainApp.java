@@ -15,15 +15,15 @@ public class MainApp {
         AbstractApplicationContext context =
                 new ClassPathXmlApplicationContext("Beans.xml");
 
-        TextEditor textEditor = (TextEditor) context.getBean("textEditor");
-        textEditor.checkSpelling();
+//        TextEditor textEditor = (TextEditor) context.getBean("textEditor");
+//        textEditor.checkSpelling();
 
         TextEditorProperty textEditorProperty = (TextEditorProperty) context.getBean("textEditorProperty");
         textEditorProperty.checkSpelling();
 
-        testHelloWorld(context);
+//        testHelloWorld(context);
 
-        context.registerShutdownHook();
+//        context.registerShutdownHook();
 
     }
 

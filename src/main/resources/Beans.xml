@@ -21,12 +21,16 @@
         <constructor-arg ref="spellChecker"/>
     </bean>
 
+    <!--<bean id="textEditorProperty" class="com.bmwu.spring.TextEditorProperty">-->
+        <!--<property name="spellChecker" ref="spellChecker"/>-->
+    <!--</bean>-->
+
     <bean id="textEditorProperty" class="com.bmwu.spring.TextEditorProperty">
-        <property name="spellChecker" ref="spellChecker"/>
+        <property name="spellChecker">
+            <bean id="spellChecker2" class="com.bmwu.spring.SpellChecker"/>
+        </property>
     </bean>
 
-    <bean id="spellChecker" class="com.bmwu.spring.SpellChecker">
-
-    </bean>
+    <bean id="spellChecker" class="com.bmwu.spring.SpellChecker"/>
 
 </beans>

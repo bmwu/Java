@@ -13,7 +13,7 @@ public class TextEditorProperty {
     }
 
     public void setSpellChecker(SpellChecker spellChecker) {
-        System.out.println("TextEditorProperty: setSpellChecker");
+        System.out.println("TextEditorProperty: Inside setSpellChecker." );
         this.spellChecker = spellChecker;
     }
 
