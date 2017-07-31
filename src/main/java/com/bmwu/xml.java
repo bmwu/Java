@@ -29,6 +29,8 @@ public class xml {
         Document doc = root.getDocument();
         String xmlNew = doc.asXML();
         System.out.println(xmlNew);
+
+        boolean b = isValidXML("%lkt!00960016f7zfU2pgT/b5Twnf+x% ");
     }
 
     public static void treeWalk(Element element) {
@@ -64,6 +66,16 @@ public class xml {
                 System.out.println("Text: " + node.getText());
             }
         }
+    }
+
+
+    public static boolean isValidXML(String value) {
+        try {
+            DocumentHelper.parseText(value);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }
 
