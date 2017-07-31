@@ -29,11 +29,19 @@ public class json {
             "  }\n" +
             "}";
 
+    private static String jsonArray = "[ \"Ford\", \"BMW\", \"Fiat\" ]";
+
     public static void main(String[] args) {
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         Object object = decodeJSONObject(jsonObject);
         JSONObject jsonObject1 = (JSONObject)object;
         System.out.println(jsonObject1.toJSONString());
+
+        boolean isValidJson = isValidJSON(jsonArray);
+        isValidJson = isValidJSON(jsonStr);
+        isValidJson = isValidJSON(null);
+        isValidJson = isValidJSON("%lkt!00960016f7zfU2pgT/b5Twnf+x% ");
+
     }
 
     public static Object decodeJSONObject(Object json){
@@ -54,6 +62,20 @@ public class json {
             return retArr;
         } else {
             return "";
+        }
+    }
+
+    public static boolean isValidJSON(String text) {
+
+        try {
+            return null != JSON.parseObject(text);
+        } catch (Exception ex) {
+            // e.g. in case JSONArray is valid as well...
+            try {
+                return null != JSON.parseArray(text);
+            } catch (Exception ex1) {
+                return false;
+            }
         }
     }
 }
