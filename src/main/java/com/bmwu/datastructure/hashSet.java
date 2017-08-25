@@ -1,4 +1,4 @@
-package com.bmwu;
+package com.bmwu.datastructure;
 
 
 import org.junit.Assert;

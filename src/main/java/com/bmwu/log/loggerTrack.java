@@ -1,5 +1,6 @@
-package com.bmwu;
+package com.bmwu.log;
 
+import com.bmwu.utils.InvalidArgumentException;
 import com.bmwu.utils.Base64Coder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;

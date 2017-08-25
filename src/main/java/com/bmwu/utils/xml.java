@@ -1,4 +1,4 @@
-package com.bmwu;
+package com.bmwu.utils;
 
 import org.dom4j.*;
 
