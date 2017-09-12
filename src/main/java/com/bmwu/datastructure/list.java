@@ -25,7 +25,7 @@ public class list {
         }
 
         for ( String str:
-                list1gitg) {
+                list1) {
             System.out.println(str + "\n");
         }
     }
