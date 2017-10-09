@@ -29,7 +29,7 @@ public class httpclient_2 {
         Map<String, String> params = new HashMap<>();
         params.put("id", "id");
 
-        HttpClient  httpClient = getHttpClient(30000);
+        HttpClient  httpClient = getHttpClient(3000);
 
         HttpClientPost(httpClient, "http://127.0.0.1:6500/test", "utf-8", params);
         HttpClientPost(httpClient, "http://127.0.0.1:6500/test", "utf-8", params);
@@ -40,6 +40,7 @@ public class httpclient_2 {
         RequestConfig.Builder requestBuilder = RequestConfig.custom();
         requestBuilder = requestBuilder.setConnectTimeout(timeout);
         requestBuilder = requestBuilder.setSocketTimeout(timeout);
+        requestBuilder = requestBuilder.setExpectContinueEnabled(true);
         requestBuilder = requestBuilder.setConnectionRequestTimeout(timeout);
 
         HttpClientBuilder builder = HttpClientBuilder.create();

@@ -30,7 +30,6 @@ public class StringUtil {
         }
     }
 
-
     @Test
     public void subString() {
         List<String> list = new ArrayList();
@@ -98,4 +97,21 @@ public class StringUtil {
             System.out.print(str.substring(index).trim() + "\n");
         }
     }
+
+    public static final String BASE_PACKAGE = "com.test";//项目基础包名称，根据自己公司的项目修改
+
+    public static final String MODEL_PACKAGE = BASE_PACKAGE + ".modules.%s.model";//Model所在包
+
+    @Test
+    public void replace() {
+        String str = String.format(MODEL_PACKAGE, "sys");
+        System.out.println(str);
+
+        String packageName = "com.jukmall.modules.%s.service";
+        String packageName2 = String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
+        System.out.println(packageName2);
+
+    }
+
+
 }
