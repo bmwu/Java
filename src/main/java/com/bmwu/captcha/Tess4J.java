@@ -14,6 +14,8 @@ public class Tess4J {
 
     @Test
     public void test() {
+
+
         ITesseract instance = new Tesseract();
         File imageFile = new File("/Users/michael/Downloads/yzm1.jpg");
 

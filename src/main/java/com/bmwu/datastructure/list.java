@@ -12,6 +12,11 @@ public class list {
     @Test
     public void listTest() {
         List<String> list = new ArrayList<>();
+
+        for (String str : list) {
+            System.out.print(str);
+        }
+
         list.add("1");
         list.add("2");
         list.add("3");
