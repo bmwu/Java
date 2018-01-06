@@ -5,16 +5,18 @@ import com.bmwu.client.HttpClient;
 import com.bmwu.utils.xml;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -170,9 +172,32 @@ public class logistics {
             }
             in.close();
             System.err.print("请求的返回信息：" + responseString);
+            parse(responseString);
+
         } catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static void parse(String xmlStr) {
+        ByteArrayInputStream xmlByteArray = new ByteArrayInputStream(xmlStr.getBytes());
+        SAXReader saxReader = new SAXReader();
+        try {
+            Document document = saxReader.read(xmlByteArray);
+            Element rootElement = document.getRootElement();
+            Iterator<Element> modulesIterator = rootElement.elements("Response").iterator();
+            Element element = rootElement.element("logisticProviderID");
+            System.out.println(element.getText());
+            element = rootElement.element("txLogisticID");
+            System.out.println(element.getText());
+            element = rootElement.element("success");
+            System.out.println(element.getText());
+            element = rootElement.element("reason");
+            System.out.println(element.getText());
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void logisticsInterface(String logisticsInterface) {
