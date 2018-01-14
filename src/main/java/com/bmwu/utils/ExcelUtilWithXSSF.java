@@ -1,7 +1,9 @@
 package com.bmwu.utils;
 
+import com.bmwu.file.model.Content;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,6 +17,65 @@ import java.util.Map;
  * Date: 18/1/13
  */
 public class ExcelUtilWithXSSF {
+
+    public static void setValues(String path, List<Content> contents) throws Exception {
+
+        XSSFWorkbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet();
+        Row row0 = sheet.createRow(0);
+        Cell cell0 = row0.createCell(0, Cell.CELL_TYPE_STRING);
+        cell0.setCellValue("日期");
+
+        Cell cell01 = row0.createCell(1, Cell.CELL_TYPE_STRING);
+        cell01.setCellValue("时间段");
+
+        Cell cell02 = row0.createCell(2, Cell.CELL_TYPE_STRING);
+        cell02.setCellValue("访问地址");
+
+        Cell cell03 = row0.createCell(3, Cell.CELL_TYPE_STRING);
+        cell03.setCellValue("IP");
+
+        Cell cell04 = row0.createCell(4, Cell.CELL_TYPE_STRING);
+        cell04.setCellValue("内容");
+
+        int rowCnt = 1;
+        for (Content content:
+             contents) {
+            Row row = sheet.createRow(rowCnt);
+            Cell cell = row.createCell(0, Cell.CELL_TYPE_STRING);
+            cell.setCellValue(content.getDate());
+
+            Cell cell1 = row.createCell(1, Cell.CELL_TYPE_STRING);
+            cell1.setCellValue(content.getTime());
+
+            Cell cell2 = row.createCell(2, Cell.CELL_TYPE_STRING);
+            cell2.setCellValue(content.getUrl());
+
+            Cell cell3 = row.createCell(3, Cell.CELL_TYPE_STRING);
+            cell3.setCellValue(content.getIp());
+
+            Cell cell4 = row.createCell(4, Cell.CELL_TYPE_STRING);
+            cell4.setCellValue(content.getContent());
+            rowCnt++;
+        }
+
+//        ByteArrayOutputStream os = new ByteArrayOutputStream();
+//        try {
+//            wb.write(os);
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
+        File file = new File(path);//Excel文件生成后存储的位置。
+        OutputStream fos  = null;
+        try {
+            fos = new FileOutputStream(file);
+            wb.write(fos);
+//            os.close();
+            fos.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 得到Excel，并解析内容  对2007及以上版本 使用XSSF解析
@@ -210,7 +271,12 @@ public class ExcelUtilWithXSSF {
                 //获得每一列中的值
                 if (maps.containsKey(id)) {
                     String value = maps.get(id);
-                    value += ("," + cell1.getStringCellValue());
+                    int indexof = cell1.getStringCellValue().indexOf('.');
+                    if (j == 4 && indexof > 0 && (cell1.getStringCellValue().length() > indexof + 3)) {
+                        value += ("," + cell1.getStringCellValue().substring(0, indexof + 3));
+                    } else {
+                        value += ("," + cell1.getStringCellValue());
+                    }
                     maps.put(id, value);
                 } else {
                     maps.put(id, cell1.getStringCellValue());

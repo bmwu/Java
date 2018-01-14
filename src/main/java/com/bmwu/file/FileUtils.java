@@ -1,5 +1,6 @@
 package com.bmwu.file;
 
+import com.bmwu.file.model.Content;
 import com.bmwu.utils.ExcelUtilWithXSSF;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Test;
@@ -18,13 +19,25 @@ import java.util.Map;
 public class FileUtils {
 
     @Test
-    public void parseAll() throws Exception {
+    public void parseAll() throws IOException {
+    }
+
+    @Test
+    public void parseId() throws Exception {
 
         // 列出所有id文件
         List<String> idFiles = new ArrayList<>();
+        idFiles.add("/Users/longkan/git/Java/src/main/resources/idsips/blq-id.xlsx");
+        idFiles.add("/Users/longkan/git/Java/src/main/resources/idsips/cym-id.xlsx");
+        idFiles.add("/Users/longkan/git/Java/src/main/resources/idsips/lzy-id.xlsx");
+        idFiles.add("/Users/longkan/git/Java/src/main/resources/idsips/mjt-id.xlsx");
 
         // 列出相对应的ip文件
         List<String> ipFiles = new ArrayList<>();
+        ipFiles.add("/Users/longkan/git/Java/src/main/resources/idsips/blq-ip.xlsx");
+        ipFiles.add("/Users/longkan/git/Java/src/main/resources/idsips/cym-ip.xlsx");
+        ipFiles.add("/Users/longkan/git/Java/src/main/resources/idsips/lzy-ip.xlsx");
+        ipFiles.add("/Users/longkan/git/Java/src/main/resources/idsips/mjt-ip.xlsx");
 
         // 获取id所对应的内容
         Map<String, String> maps = getMaps(idFiles);
@@ -35,15 +48,18 @@ public class FileUtils {
 
             List<String> ips = ExcelUtilWithXSSF.getIps(ipFiles.get(i));
 
-            String logPath = ""; // log文件所在的目录
-            File f = new File(logPath);
+            File f = new File("/Users/longkan/git/Java/src/main/resources/W3SVC4");
             File[] files = f.listFiles();
             int count = 0;
+            List<Content> matchedIds = new ArrayList<>();
             for (File file :
                  files) {
-                count += parse(file, ips, ids, maps, ipFiles.get(i).substring(ipFiles.get(i).indexOf("idsips") +7, ipFiles.get(i).indexOf("idsips") + 10));
+                matchedIds.addAll(parse(file, ips, ids, maps));
             }
-            System.out.println("全日志匹配到记录数：" + count);
+
+            String matchFile = "/Users/longkan/git/Java/src/main/resources/match-"+ipFiles.get(i).substring(ipFiles.get(i).indexOf("idsips") +7, ipFiles.get(i).indexOf("idsips") + 10)+".xlsx";
+
+            ExcelUtilWithXSSF.setValues(matchFile, matchedIds);
         }
     }
 
@@ -64,7 +80,7 @@ public class FileUtils {
 
     }
 
-    private int parse(File file, List<String> ips, List<String> ids, Map<String, String> maps, String name) throws IOException {
+    private List<Content> parse(File file, List<String> ips, List<String> ids, Map<String, String> maps) throws IOException {
 
         FileReader reader = new FileReader(file.getAbsolutePath());
 
@@ -73,7 +89,7 @@ public class FileUtils {
         String str = null;
         int count = 0;
 
-        List<String> matchedIds = new ArrayList<>();
+        List<Content> matchedIds = new ArrayList<>();
 
         while((str = br.readLine()) != null) {
             for (String ip:
@@ -85,36 +101,29 @@ public class FileUtils {
                     String id = matchedStr.substring(matchedStr2.indexOf("id") +3 , matchedStr2.lastIndexOf('-') -1);
 
                     if (ids.contains(id)) {
-                        matchedIds.add(matchedStr + " - " + maps.get(id));
+                        String date = matchedStr.substring(0, matchedStr.indexOf(' '));
+                        String hour = "";
+                        int ihour = Integer.valueOf(matchedStr.substring(date.length()+1, date.length()+3)) + 8;
+                        if (ihour >= 24) {
+                            hour = String.valueOf(ihour - 24);
+                        } else {
+                            hour = String.valueOf(ihour);
+                        }
+                        String time = hour + matchedStr.substring(date.length()+3, date.length()+9);
+                        String url = "o.a" + matchedStr.substring(matchedStr.indexOf("GET") + 4, matchedStr.lastIndexOf('-') -1).replace(' ', '?');
+
+                        Content content = new Content(date, time, url, ip, maps.get(id));
+                        matchedIds.add(content);
                         count++;
                     }
                 }
             }
         }
 
-        FileWriter writer = new FileWriter("/Users/longkan/git/Java/src/main/resources/match-"+name+".log",true);
-        BufferedWriter bw = new BufferedWriter(writer);
-
-        matchedIds.forEach(id -> {
-            try {
-                bw.write(id + "\n");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
-
-        bw.close();
-        writer.close();
-
-        FileWriter writer2 = new FileWriter("/Users/longkan/git/Java/src/main/resources/matchcount-"+name+".log",true);
-        BufferedWriter bw2 = new BufferedWriter(writer2);
-        bw2.write(file.getName() + "匹配到的记录个数:" + count + "\n");
-        bw2.close();
-        writer2.close();
-
         br.close();
         reader.close();
-        return count;
+        return matchedIds;
     }
+
+
 }
