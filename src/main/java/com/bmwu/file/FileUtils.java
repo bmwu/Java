@@ -94,6 +94,7 @@ public class FileUtils {
         while((str = br.readLine()) != null) {
             for (String ip:
                  ips) {
+
                 if (str.contains(ip) && str.contains("/module/mod_expense/edit.asp") && !str.contains("FormCode=217")) {
 
                     String matchedStr = str.substring(0, str.indexOf(ip) + ip.length());

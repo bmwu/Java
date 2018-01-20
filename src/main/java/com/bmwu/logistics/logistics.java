@@ -143,10 +143,38 @@ public class logistics {
 
     public static void test2() {
 
-        logisticsInterface(xml.javeBean2Xml());
-        String testxxxxx = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><RequestOrder><clientID>TEST</clientID><logisticProviderID>YTO</logisticProviderID><txLogisticID>AS83752763</txLogisticID><orderType>1</orderType><serviceType>1</serviceType><sender>	<name>周小庆</name>	<postCode></postCode>	<phone></phone>	<mobile>8613681645278</mobile>	<prov>上海</prov>	<city>上海市,青浦区</city>	<address>青浦区华新镇华徐公路3029弄5号3号楼</address></sender><receiver><name>test</name><phone>231234134</phone><postCode></postCode>	<prov>上海</prov><city>上海市,青浦区</city><address>address</address></receiver><special>0</special></RequestOrder>";
-        logisticsInterface(testxxxxx);
-        logisticsInterface("<RequestOrder><clientID>TEST</clientID><logisticProviderID>YTO</logisticProviderID><customerId></customerId><txLogisticID>VC5555555555555666</txLogisticID><tradeNo></tradeNo><mailNo></mailNo><totalServiceFee></totalServiceFee><codSplitFee></codSplitFee><orderType>1</orderType><serviceType>0</serviceType><flag></flag><sender>	<name>周小庆</name>	<postCode></postCode>	<phone></phone>	<mobile>8613681645278</mobile>	<prov>上海</prov>	<city>上海市,青浦区</city>	<address>青浦区华新镇华徐公路3029弄5号3号楼</address></sender><receiver>	<name>董小姐</name>	<postCode></postCode>	<phone></phone>	<mobile>8613601608775</mobile>	<prov>上海</prov>	<city>上海市,青浦区</city>	<address>青浦区华新镇叙中村二 78号</address></receiver><sendStartTime></sendStartTime><sendEndTime></sendEndTime><goodsValue></goodsValue><itemsValue></itemsValue><items><item>	<itemName>0</itemName>	<number>0</number>	<itemValue></itemValue></item></items><insuranceValue></insuranceValue><special>0</special><remark></remark></RequestOrder>");
+//        logisticsInterface(xml.javeBean2Xml());
+//        String testxxxxx = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><RequestOrder><clientID>TEST</clientID><logisticProviderID>YTO</logisticProviderID><txLogisticID>AS83752763</txLogisticID><orderType>1</orderType><serviceType>1</serviceType><sender>	<name>周小庆</name>	<postCode></postCode>	<phone></phone>	<mobile>8613681645278</mobile>	<prov>上海</prov>	<city>上海市,青浦区</city>	<address>青浦区华新镇华徐公路3029弄5号3号楼</address></sender><receiver><name>test</name><phone>231234134</phone><postCode></postCode>	<prov>上海</prov><city>上海市,青浦区</city><address>address</address></receiver><special>0</special></RequestOrder>";
+        String testaaaaa = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "\n" +
+                "<RequestOrder>\n" +
+                " <clientID>TEST</clientID>\n" +
+                " <logisticProviderID>YTO</logisticProviderID>\n" +
+                " <txLogisticID>TEST24</txLogisticID>\n" +
+                " <orderType>1</orderType>\n" +
+                " <serviceType>1</serviceType>\n" +
+                " <sender>\n" +
+                "  <name>京昌平阳光AD</name>\n" +
+                "  <postCode>123456</postCode>\n" +
+                "  <phone>13093771729</phone>\n" +
+                "  <mobile>13093771729</mobile>\n" +
+                "  <prov>浙江</prov>\n" +
+                "  <city>杭州</city>\n" +
+                "  <address>云溪小镇</address>\n" +
+                " </sender>\n" +
+                " <receiver>\n" +
+                "  <name>Qeqwe</name>\n" +
+                "  <postCode>123456</postCode>\n" +
+                "  <phone>13093771729</phone>\n" +
+                "  <mobile>14988288374</mobile>\n" +
+                "  <prov>北京</prov>\n" +
+                "  <city>北京市</city>\n" +
+                "  <address>Weqeqe</address>\n" +
+                " </receiver>\n" +
+                " <special>0</special>\n" +
+                "</RequestOrder>\n";
+        logisticsInterface(testaaaaa);
+//        logisticsInterface("<RequestOrder><clientID>TEST</clientID><logisticProviderID>YTO</logisticProviderID><customerId></customerId><txLogisticID>VC5555555555555666</txLogisticID><tradeNo></tradeNo><mailNo></mailNo><totalServiceFee></totalServiceFee><codSplitFee></codSplitFee><orderType>1</orderType><serviceType>0</serviceType><flag></flag><sender>	<name>周小庆</name>	<postCode></postCode>	<phone></phone>	<mobile>8613681645278</mobile>	<prov>上海</prov>	<city>上海市,青浦区</city>	<address>青浦区华新镇华徐公路3029弄5号3号楼</address></sender><receiver>	<name>董小姐</name>	<postCode></postCode>	<phone></phone>	<mobile>8613601608775</mobile>	<prov>上海</prov>	<city>上海市,青浦区</city>	<address>青浦区华新镇叙中村二 78号</address></receiver><sendStartTime></sendStartTime><sendEndTime></sendEndTime><goodsValue></goodsValue><itemsValue></itemsValue><items><item>	<itemName>0</itemName>	<number>0</number>	<itemValue></itemValue></item></items><insuranceValue></insuranceValue><special>0</special><remark></remark></RequestOrder>");
     }
 
     public static void he(String apiUrl, String queryString) {
