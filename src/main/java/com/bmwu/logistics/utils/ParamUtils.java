@@ -2,6 +2,7 @@ package com.bmwu.logistics.utils;
 
 import org.apache.commons.codec.binary.Base64;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.Iterator;
 import java.util.Map;
@@ -80,5 +81,9 @@ public class ParamUtils {
         md.update(str.getBytes(charset));
         byte[] result = md.digest();
         return new String(Base64.encodeBase64(result));
+    }
+
+    public static String binary(byte[] bytes, int radix){
+        return new BigInteger(1, bytes).toString(radix);// 这里的1代表正数
     }
 }

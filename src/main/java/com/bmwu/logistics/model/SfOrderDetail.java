@@ -18,8 +18,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @XStreamAlias("Order")
-//@XStreamConverter(value = ToAttributedValueConverter.class, strings = {""})
-public class SfOrderDetail implements Serializable {
+@XStreamConverter(value = ToAttributedValueConverter.class)
+public class SfOrderDetail implements Serializable   {
 
     private static final long serialVersionUID = -3981119563415169644L;
 
@@ -93,7 +93,25 @@ public class SfOrderDetail implements Serializable {
     @XStreamAlias("d_post_code")
     private String dPostCode;
 
+    @XStreamAlias("express_type")
+    private String expressType = "1";
+
     @XStreamAlias("pay_method")
-    private String payMethod;
+    private String payMethod = "1";
+
+    @XStreamAlias("parcel_quantity")
+    private String parcelQuantity = "1";
+
+    @XStreamAlias("cargo_width")
+    private String cargoWidth = "33";
+
+    @XStreamAlias("cargo_length")
+    private String cargoLength = "33";
+
+    @XStreamAlias("cargo_height")
+    private String cargoHeight = "33";
+
+    @XStreamAlias("remark")
+    private String remark = "";
 
 }

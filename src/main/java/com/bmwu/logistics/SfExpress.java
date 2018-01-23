@@ -3,12 +3,13 @@ package com.bmwu.logistics;
 import com.bmwu.logistics.model.*;
 import com.bmwu.logistics.utils.ExpressOpenClient;
 import com.bmwu.logistics.utils.ParamUtils;
+import com.bmwu.logistics.utils.XStreamNameCoder;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.Converter;
-import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,17 @@ import java.util.Map;
  */
 @Slf4j
 public class SfExpress {
+
+    public static final XStreamNameCoder nameCoder = new XStreamNameCoder();
+
+    // 编码格式
+    private static final String ENCODING = "UTF-8";
+
+    // dom解析驱动
+    private static final DomDriver fixDriver = new DomDriver(ENCODING, nameCoder);
+
+    // 通用解析器
+    public static final XStream XSTREAM = new XStream(fixDriver);
 
     @Test
     public void test() {
@@ -33,14 +45,18 @@ public class SfExpress {
         sfOrder.setDMobile("15909878902");
         sfOrder.setDProvince("浙江省");
         sfOrder.setDCity("杭州市");
-        sfOrder.setDAddress("余杭区");
+        sfOrder.setDCounty("余杭区");
+        sfOrder.setDAddress("123");
         // sender
         sfOrder.setJContact("sender");
         sfOrder.setJTel("15987651234");
         sfOrder.setJMobile("15989098765");
         sfOrder.setJProvince("浙江省");
         sfOrder.setJCity("杭州市");
-        sfOrder.setJAddress("余杭区");
+        sfOrder.setJCounty("余杭区");
+        sfOrder.setJAddress("345");
+
+        sfOrder.setPayMethod("1");
 
         SfOrderRequest sfRequest = new SfOrderRequest();
         sfRequest.setService("OrderService");
@@ -49,12 +65,12 @@ public class SfExpress {
         sfOrderBody.setSfOrderDetail(sfOrder);
         sfRequest.setBody(sfOrderBody);
 
-        XStream xStream = new XStream();
+        XStream xStream = new XStream(fixDriver);
 
-        Converter converter = new ToAttributedValueConverter(SfOrderDetail.class,
-                xStream.getMapper(), xStream.getReflectionProvider(), xStream.getConverterLookup(), null);
-        xStream.registerConverter(converter);
-
+//        Converter converter = new ToAttributedValueConverter(SfOrderDetail.class,
+//                xStream.getMapper(), xStream.getReflectionProvider(), xStream.getConverterLookup(), null);
+//        xStream.registerConverter(converter);
+//
         xStream.processAnnotations(SfOrderRequest.class);
         orderService(xStream.toXML(sfRequest));
     }
@@ -79,11 +95,19 @@ public class SfExpress {
     }
 
     private void orderService(final String xml) {
+
         try {
             Map<String, String> paramMap = new HashMap<>();
             String xmlNew = URLEncoder.encode(xml);
             paramMap.put("xml", xmlNew);
+            System.out.println("xml");
+            System.out.println(xml);
+            System.out.println("xml encode");
+            System.out.println(xmlNew);
             paramMap.put("verifyCode", genVerifyCode(xmlNew));
+            System.out.println("verifyCode");
+            System.out.println(genVerifyCode(xmlNew));
+//            String result = ExpressOpenClient.getInstance().doPostForm("https://bsp-ois.sit.sf-express.com:9443/bsp-ois/sfexpressService", paramMap);
             String result = ExpressOpenClient.getInstance().doPostForm("http://bsp-ois.sit.sf-express.com:9080/bsp-ois/sfexpressService", paramMap);
             System.out.println(result);
             XStream xStream = new XStream();
