@@ -1,12 +1,8 @@
 package com.bmwu.logistics;
 
-import com.alibaba.fastjson.JSON;
-import com.bmwu.client.HttpClient;
-import com.bmwu.utils.xml;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
@@ -173,6 +169,7 @@ public class logistics {
                 " </receiver>\n" +
                 " <special>0</special>\n" +
                 "</RequestOrder>\n";
+        System.out.println(testaaaaa);
         logisticsInterface(testaaaaa);
 //        logisticsInterface("<RequestOrder><clientID>TEST</clientID><logisticProviderID>YTO</logisticProviderID><customerId></customerId><txLogisticID>VC5555555555555666</txLogisticID><tradeNo></tradeNo><mailNo></mailNo><totalServiceFee></totalServiceFee><codSplitFee></codSplitFee><orderType>1</orderType><serviceType>0</serviceType><flag></flag><sender>	<name>周小庆</name>	<postCode></postCode>	<phone></phone>	<mobile>8613681645278</mobile>	<prov>上海</prov>	<city>上海市,青浦区</city>	<address>青浦区华新镇华徐公路3029弄5号3号楼</address></sender><receiver>	<name>董小姐</name>	<postCode></postCode>	<phone></phone>	<mobile>8613601608775</mobile>	<prov>上海</prov>	<city>上海市,青浦区</city>	<address>青浦区华新镇叙中村二 78号</address></receiver><sendStartTime></sendStartTime><sendEndTime></sendEndTime><goodsValue></goodsValue><itemsValue></itemsValue><items><item>	<itemName>0</itemName>	<number>0</number>	<itemValue></itemValue></item></items><insuranceValue></insuranceValue><special>0</special><remark></remark></RequestOrder>");
     }
@@ -203,6 +200,7 @@ public class logistics {
             parse(responseString);
 
         } catch(Exception e){
+            System.out.println(e);
             e.printStackTrace();
         }
     }
@@ -222,7 +220,8 @@ public class logistics {
             System.out.println(element.getText());
             element = rootElement.element("reason");
             System.out.println(element.getText());
-        } catch (DocumentException e) {
+        } catch (Exception e) {
+            System.out.println(e);
             e.printStackTrace();
         }
 
