@@ -1,7 +1,13 @@
 package com.bmwu.utils;
 
+import com.bmwu.utils.dto.RequestOrder;
+import com.bmwu.utils.dto.RequestUser;
+import org.apache.commons.lang.RandomStringUtils;
 import org.dom4j.*;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 /**
@@ -10,6 +16,65 @@ import java.util.List;
 public class xml {
 
     public static void main(String[] args) {
+
+        javeBean2Xml();
+
+    }
+
+    public static String javeBean2Xml() {
+
+        RequestOrder order = new RequestOrder();
+        order.setTxLogisticID("AS" + RandomStringUtils.randomNumeric(8));
+
+        RequestUser sender = new RequestUser();
+        sender.setName("test");
+        sender.setProv("上海");
+        sender.setCity("上海市,青浦区");
+        sender.setAddress("address");
+        sender.setPostCode("12");
+        sender.setPhone("231234134");
+
+        RequestUser receiver = new RequestUser();
+        receiver.setName("test");
+        receiver.setProv("上海");
+        receiver.setPostCode("12");
+        receiver.setCity("上海市,青浦区");
+        receiver.setAddress("address");
+        receiver.setPhone("231234134");
+
+        order.setSender(sender);
+        order.setReceiver(receiver);
+
+        Document doc = DocumentHelper.createDocument();
+        //创建根节点
+        Element root = DocumentHelper.createElement("RequestOrder");//根节点
+        doc.setRootElement(root);
+
+        try {
+            XmlUtil.copyAttrToEle(order, root);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(document2String(doc));
+        return document2String(doc);
+    }
+
+    private static String document2String(Document doc) {
+        String str = "";
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            OutputFormat format = new OutputFormat(" ", true , "UTF-8");
+            XMLWriter writer = new XMLWriter(out,format);
+            writer.write(doc);
+            str = out.toString("UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    public void testXml() {
 
         String xml = "<note att='bb'>\n" +
                      "  <to at='aa' readonly='true'><test bt='bb'>Tove</test></to>\n" +
@@ -32,6 +97,8 @@ public class xml {
 
         boolean b = isValidXML("%lkt!00960016f7zfU2pgT/b5Twnf+x% ");
     }
+
+
 
     public static void treeWalk(Element element) {
 
@@ -67,7 +134,6 @@ public class xml {
             }
         }
     }
-
 
     public static boolean isValidXML(String value) {
         try {

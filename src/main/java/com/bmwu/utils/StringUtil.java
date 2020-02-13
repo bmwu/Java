@@ -2,10 +2,7 @@ package com.bmwu.utils;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by michael on 8/11/17.
@@ -111,6 +108,15 @@ public class StringUtil {
         String packageName2 = String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
         System.out.println(packageName2);
 
+    }
+
+    /**
+     * Optional
+     */
+    @Test
+    public void test() {
+        System.out.println(Optional.empty().get());
+        System.out.println(Optional.ofNullable(null).get());
     }
 
 
